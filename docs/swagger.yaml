@@ -1,0 +1,42 @@
+definitions:
+  model.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      error:
+        example: message
+        type: string
+    type: object
+  model.Response-string:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Ping default
+      operationId: get-mentor-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-string'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Ping default
+      tags:
+      - Default
+swagger: "2.0"
