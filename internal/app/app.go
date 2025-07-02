@@ -3,13 +3,15 @@ package app
 
 import (
 	"io"
+	"sync"
+	"template/config"
+	controller "template/internal/controller/http"
+	"template/internal/repositories"
+	"template/internal/services"
+	"template/pkg/grpcserver"
+	"template/pkg/httpserver"
+	"template/pkg/logger"
 	"time"
-	"wine-be/config"
-	controller "wine-be/internal/controller/http"
-	"wine-be/internal/repositories"
-	"wine-be/internal/services"
-	"wine-be/pkg/httpserver"
-	"wine-be/pkg/logger"
 
 	"fmt"
 	"os"
@@ -69,6 +71,11 @@ func Run(cfg *config.Config) {
 	}))
 	controller.NewRouter(handler, l, *userService)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
+	// gRPC Server
+	// grpcAdapter := grpcHandler.NewAdapter(couponController, l)
+	grpcServer := grpcserver.New(cfg.GRPC.Port)
+	// grpcServer.RegisterService(grpcAdapter.RegisterService)
+	grpcServer.Start()
 
 	// Waiting signal
 	interrupt := make(chan os.Signal, 1)
@@ -79,12 +86,32 @@ func Run(cfg *config.Config) {
 		l.Info("app - Run - signal: " + s.String())
 	case err := <-httpServer.Notify():
 		l.Error(fmt.Errorf("app - Run - httpServer.Notify: %w", err))
+	case err := <-grpcServer.Notify():
+		l.Error(fmt.Errorf("app - Run - grpcServer.Notify: %w", err))
 	}
 
 	// Shutdown
-	err = httpServer.Shutdown()
-	if err != nil {
-		l.Error(fmt.Errorf("app - Run - httpServer.Shutdown: %w", err))
-	}
-
+	l.Info("Shutting down server...")
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		l.Info("Shutting down gRPC server...")
+		if err := grpcServer.Shutdown(); err != nil {
+			l.Error(fmt.Errorf("app - Run - grpcServer.Shutdown: %w", err))
+		} else {
+			l.Info("gRPC server shutdown complete")
+		}
+	}()
+	go func() {
+		defer wg.Done()
+		l.Info("Shutting down HTTP server...")
+		if err := httpServer.Shutdown(); err != nil {
+			l.Error(fmt.Errorf("app - Run - httpServer.Shutdown: %w", err))
+		} else {
+			l.Info("HTTP server shutdown complete")
+		}
+	}()
+	wg.Wait()
+	l.Info("All servers have been shut down gracefully")
 }

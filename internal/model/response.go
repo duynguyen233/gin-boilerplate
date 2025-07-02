@@ -2,7 +2,7 @@ package model
 
 import (
 	"net/http"
-	"wine-be/pkg/utils/errs"
+	"template/pkg/utils/errs"
 
 	"github.com/gin-gonic/gin"
 )

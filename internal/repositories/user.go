@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"context"
-	"wine-be/internal/model"
+	"template/internal/model"
 
 	"gorm.io/gorm"
 )

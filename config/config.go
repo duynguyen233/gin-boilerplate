@@ -12,6 +12,7 @@ type (
 	Config struct {
 		App  `yaml:"app"`
 		HTTP `yaml:"http"`
+		GRPC `yaml:"grpc"`
 		Log  `yaml:"logger"`
 		PG   `yaml:"postgres"`
 		Cors `yaml:"cors"`
@@ -26,6 +27,11 @@ type (
 	// HTTP -.
 	HTTP struct {
 		Port string `yaml:"port" env:"HTTP_PORT"`
+	}
+
+	// GRPC -.
+	GRPC struct {
+		Port int `yaml:"port" env:"GRPC_PORT"`
 	}
 
 	// Log -.

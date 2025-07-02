@@ -2,10 +2,10 @@ package services
 
 import (
 	"context"
+	"template/internal/model"
+	"template/internal/repositories"
+	"template/pkg/utils/errs"
 	"time"
-	"wine-be/internal/model"
-	"wine-be/internal/repositories"
-	"wine-be/pkg/utils/errs"
 
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"

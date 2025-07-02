@@ -7,9 +7,9 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	// Swagger docs.
-	_ "wine-be/docs"
-	"wine-be/internal/services"
-	"wine-be/pkg/logger"
+	_ "template/docs"
+	"template/internal/services"
+	"template/pkg/logger"
 )
 
 // NewRouter -.

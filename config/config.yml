@@ -1,5 +1,5 @@
 app:
-  name: 'wine-be'
+  name: 'template'
   version: '1.0.0'
 
 http:
@@ -7,7 +7,7 @@ http:
 
 logger:
   log_level: 'debug'
-  rollbar_env: 'wine-be'
+  rollbar_env: 'template'
 
 postgres:
   pool_max: 2

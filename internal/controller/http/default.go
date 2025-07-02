@@ -2,8 +2,8 @@ package controller
 
 import (
 	"net/http"
-	"wine-be/internal/model"
-	"wine-be/pkg/logger"
+	"template/internal/model"
+	"template/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 )

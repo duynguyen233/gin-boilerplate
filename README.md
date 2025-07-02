@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.rockship.co/wine-be/wine-be-be.git
+git remote add origin https://gitlab.rockship.co/template/template-be.git
 git branch -M master
 git push -uf origin master
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](http://gitlab.rockship.co/wine-be/wine-be-be/-/settings/integrations)
+- [ ] [Set up project integrations](http://gitlab.rockship.co/template/template-be/-/settings/integrations)
 
 ## Collaborate with your team
 

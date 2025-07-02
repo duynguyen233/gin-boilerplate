@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"wine-be/config"
-	"wine-be/internal/app"
+	"template/config"
+	"template/internal/app"
 
 	_ "ariga.io/atlas-provider-gorm/gormschema"
 )
